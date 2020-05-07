@@ -1,16 +1,17 @@
 version: 1
-    
+
 kind: notebook
 
 backend: notebook
 
 environment:
     node_selector:
-    group: GPU-G4-4
+        group: GPU-G4-4
     resources:
-    gpu:
-        requests: 1
-        limits: 1
+        gpu:
+            requests: 1
+            limits: 1
 
 build:
     dockerfile: notebook.Dockerfile
+    

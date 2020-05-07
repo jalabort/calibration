@@ -28,6 +28,7 @@ RUN wget https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Lin
 ENV PATH $PATH:/root/miniconda3/bin/
  
 # Install Python 3.7 and PIP
+ENV PYTHONDONTWRITEBYTECODE=true
 RUN conda install python=3.7 && conda install pip -y
  
 # Point PIP to Huld PyPI
@@ -37,11 +38,12 @@ extra-index-url = http://54.161.171.57/simple/\n\
 trusted-host = 54.161.171.57' >> /root/.pip/pip.conf
 
 # Install Python Packages
-ENV PYTHONDONTWRITEBYTECODE=true
 RUN pip install jupyter black
 RUN jupyter nbextension install https://github.com/drillan/jupyter-black/archive/master.zip \
     && jupyter nbextension enable jupyter-black-master/jupyter-black
-RUN pip install fastai 
+RUN pip install fastai
+
+# Clean conda env
 RUN conda clean -afy \
     && find /opt/conda/ -follow -type f -name '*.a' -delete \
     && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
