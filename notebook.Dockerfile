@@ -4,9 +4,9 @@ ARG UBUNTU_VERSION=18.04
 FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-runtime-ubuntu${UBUNTU_VERSION}
  
 # Dockerfile info
-LABEL maintainer="FrostAI"
+LABEL maintainer="Wyscout"
 LABEL version="0.0.1"
-LABEL description="Base Docker image for Hudl Experiment (GPU)"
+LABEL description="Base GPU docker image for experimenting with camera calibation."
  
 # Update and install packages
 RUN apt-get update -y && \
@@ -45,5 +45,5 @@ RUN pip install fastai
 
 # Clean conda env
 RUN conda clean -afy \
-    && find /opt/conda/ -follow -type f -name '*.a' -delete \
-    && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+    && find /root/miniconda3/ -follow -type f -name '*.a' -delete \
+    && find /root/miniconda3/ -follow -type f -name '*.pyc' -delete \
