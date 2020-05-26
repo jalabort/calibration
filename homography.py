@@ -10,7 +10,6 @@ def fovX_to_focal_length(fovX, imageCenterX):
     focalLength = imageCenterX * (1 / math.tan(fovX * DEG2RAD / 2))
     return focalLength
 
-
 def camera_parameters_to_homography(fovX, x, y, z, tilt, pan, roll, imageCenter):
     focalLength = fovX_to_focal_length(fovX, imageCenter[0])
 
@@ -78,3 +77,21 @@ def camera_parameters_to_homography(fovX, x, y, z, tilt, pan, roll, imageCenter)
     outHomography[2, 2] = 1
 
     return outHomography
+
+def project_point(point, homography):
+    pt_aux = np.ones((3,1), dtype=np.float64)
+    pt_aux[0] = point[0]
+    pt_aux[1] = point[1]
+
+    aux = np.matmul(homography[2,0:], pt_aux)
+    xp = np.matmul(homography[0,0:], pt_aux) / aux
+    yp = np.matmul(homography[1,0:], pt_aux) / aux
+
+    return [xp, yp]
+
+def project_line(line, homography):
+    point0 = project_point([line[0], line[1]], homography)
+    point1 = project_point([line[2], line[3]], homography)
+    line_out = [point0[0], point0[1], point1[0], point1[1]]
+
+    return line_out
