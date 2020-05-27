@@ -42,6 +42,7 @@ RUN pip install jupyter black
 RUN jupyter nbextension install https://github.com/drillan/jupyter-black/archive/master.zip \
     && jupyter nbextension enable jupyter-black-master/jupyter-black
 RUN pip install fastai
+RUN pip install opencv-python
 
 # Clean conda env
 RUN conda clean -afy \
