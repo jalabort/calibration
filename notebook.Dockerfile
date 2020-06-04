@@ -32,7 +32,7 @@ ENV PYTHONDONTWRITEBYTECODE=true
 RUN conda install python=3.7 && conda install pip -y
 
 # Install OpenCV
-RUN conda install -c conda-forge opencv
+# RUN conda install -c conda-forge opencv
 
 # Point PIP to Huld PyPI
 RUN mkdir -p /root/.pip/ && echo '[global]\n\
