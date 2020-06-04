@@ -30,7 +30,10 @@ ENV PATH $PATH:/root/miniconda3/bin/
 # Install Python 3.7 and PIP
 ENV PYTHONDONTWRITEBYTECODE=true
 RUN conda install python=3.7 && conda install pip -y
- 
+
+# Install OpenCV
+RUN conda install -c conda-forge opencv
+
 # Point PIP to Huld PyPI
 RUN mkdir -p /root/.pip/ && echo '[global]\n\
 index-url = https://pypi.python.org/simple/\n\
@@ -47,6 +50,3 @@ RUN pip install fastai
 RUN conda clean -afy \
     && find /root/miniconda3/ -follow -type f -name '*.a' -delete \
     && find /root/miniconda3/ -follow -type f -name '*.pyc' -delete \
-
-# Install OpenCV
-RUN conda install -c conda-forge opencv
