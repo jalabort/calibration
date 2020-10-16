@@ -28,15 +28,16 @@ class SportsField:
         self.size = data['size']
         self.lines = data['lines']
 
-    def project_to_image(self, homography, image_size):
-        image = np.zeros((image_size[1], image_size[0])) * 255
-
-        line_thickness = 2
+    def project_to_image(self, homography, image_size, color = (255, 255, 255), thickness = 2, image_background = None):
+        if image_background is None:
+            image = np.zeros((image_size[1], image_size[0], 3))
+        else:
+            image = image_background
 
         for line in self.lines.values():
             for line_segment in line:
                 pline = project_line(line_segment, homography)
-                cv2.line(image, (int(pline[0]), int(pline[1])), (int(pline[2]), int(pline[3])), (255, 255, 255), thickness=line_thickness)
+                cv2.line(image, (int(pline[0]), int(pline[1])), (int(pline[2]), int(pline[3])), color, thickness)
 
         return image
 

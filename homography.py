@@ -11,9 +11,9 @@ def fovX_to_focal_length(fovX, imageCenterX):
 
 # p is an array with the 7 parameters
 def camera_parameters_to_homography(p, imageCenter):
-    camera_parameters_to_homography(p[0], p[1], p[2], p[3], p[4], p[5], p[6], imageCenter)
+    return __camera_parameters_to_homography(p[0], p[1], p[2], p[3], p[4], p[5], p[6], imageCenter)
 
-def camera_parameters_to_homography(fovX, x, y, z, tilt, pan, roll, imageCenter):
+def __camera_parameters_to_homography(fovX, x, y, z, tilt, pan, roll, imageCenter):
     focalLength = fovX_to_focal_length(fovX, imageCenter[0])
 
     # Compute the rotation+translation matrix between the field frame and the camera frame
